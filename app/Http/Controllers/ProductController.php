@@ -44,4 +44,31 @@ class ProductController extends Controller
         ], 200);
     }
 
+    public function update_product(Request $request, $id) {
+        $product = Product::find($id);
+
+        $product->name = $request->name;
+        $product->description = $request->description;
+
+        if (!empty($request->photo) && $request->hasFile('photo') ) {
+
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.' . $extension;
+            $file->move(public_path('uploads/'), $filename);
+            if(file_exists($file)){
+                @unlink($file);
+            }
+
+            $product->photo = 'public/uploads/'.$filename;
+        } else {
+            $name = $product->photo;
+        };
+        $product->photo =  $name;
+        $product->type = $request->type;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->save();
+    }
+
 }
