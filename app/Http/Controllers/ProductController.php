@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -69,6 +71,15 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
         $product->price = $request->price;
         $product->save();
+    }
+
+    public function delete_product($id) {
+        $product = Product::findOrFail($id);
+        $image = public_path(). $product->photo;
+        if(file_exists($image)){
+            @unlink($image);
+        }
+        $product->delete();
     }
 
 }
