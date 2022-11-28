@@ -27,7 +27,7 @@ class ProductController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.' . $extension;
             $file->move(public_path('uploads/'), $filename);
-            $product->photo = 'public/uploads/'.$filename;
+            $product->photo = 'uploads/'.$filename;
         } else {
              $product->photo = "0";
         };
@@ -62,7 +62,7 @@ class ProductController extends Controller
                 @unlink($file);
             }
 
-            $product->photo = 'public/uploads/'.$filename;
+            $product->photo = 'uploads/'.$filename;
         } else {
             $name = $product->photo;
         };

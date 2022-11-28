@@ -26,6 +26,7 @@ function New() {
                 footer: 'Why do I have this issue ?'
             })
         } else {
+            console.log(file)
             setPhoto(file)
         }
     }

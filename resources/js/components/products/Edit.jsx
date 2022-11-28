@@ -11,7 +11,7 @@ const Edit = () => {
     const [type, setType] = useState("")
     const [quantity, setQuantity] = useState("")
     const [price, setPrice] = useState("")
-    const [avatar, setAvatar] = useState(true)
+    const [confirmImg, setConfirmImg] = useState(false)
 
     const { id } = useParams()
 
@@ -33,6 +33,7 @@ const Edit = () => {
             })
         } else {
             setPhoto(file)
+            setConfirmImg(true)
         }
     }
 
@@ -78,10 +79,6 @@ const Edit = () => {
         })
     }
 
-    const ourImage = (img) => {
-        return "/"+img
-    }
-
     return (
         <div className="container">
             <div className="product_edit">
@@ -108,9 +105,7 @@ const Edit = () => {
                             <ul className="images_list">
                                 <li className="image_item">
                                     <div className="image_item-img">
-                                        {photo &&
-                                            <img src={photo} width="117px" height="100px" alt="" />
-                                        }
+                                        {confirmImg ? <img src={URL.createObjectURL(photo)} width="117px" height="100px" alt="" /> :  <img src={"/" + photo} width="117px" height="100px" alt="" />}
                                     </div>
                                 </li>
                                 <li className="image_item">
